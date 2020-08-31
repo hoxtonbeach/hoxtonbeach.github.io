@@ -1,5 +1,6 @@
 import org.scalajs.dom
-import org.scalajs.dom.document
+import org.scalajs.dom.{document, html}
+import org.scalajs.dom.raw.Element
 
 object Main {
   def main(args: Array[String]): Unit = {
@@ -8,23 +9,77 @@ object Main {
     })
   }
 
+  def setupUI(): Unit = {
+    val button = document.createElement("button")
+
+    button.textContent = "Click me!"
+    button.addEventListener("click", { (e: dom.MouseEvent) =>
+      calculate()
+    })
+
+    document.body.appendChild(form)
+    document.body.appendChild(button)
+  }
+
   def appendPar(targetNode: dom.Node, text: String): Unit = {
     val parNode = document.createElement("p")
     parNode.textContent = text
     targetNode.appendChild(parNode)
   }
 
-  def setupUI(): Unit = {
-    val button = document.createElement("button")
-
-    button.textContent = "Click me!"
-    button.addEventListener("click", { (e: dom.MouseEvent) =>
-      addClickedMessage()
-    })
-    document.body.appendChild(button)
+  def form: Element = {
+    val form = document.createElement("form")
+    form.appendChild(boxLabel("Hours:", "hours"))
+    form.appendChild(hoursBox)
+    form.appendChild(br)
+    form.appendChild(boxLabel("Takings:", "takings"))
+    form.appendChild(takingsBox)
+    form
   }
 
-  def addClickedMessage(): Unit = {
-    appendPar(document.body, "You clicked the button to let me know!")
+  def boxLabel(text: String, `for`: String): Element = {
+    val textBox = document.createElement("label")
+    textBox.setAttribute(`for`, "hours")
+    textBox.innerHTML = text
+    textBox
   }
+
+  def hoursBox: Element = {
+    val textBox = document.createElement("input")
+    textBox.setAttribute("type", "number")
+    textBox.setAttribute("id", "hours")
+    textBox
+  }
+
+  def takingsBox: Element = {
+    val textBox = document.createElement("input")
+    textBox.setAttribute("type", "number")
+    textBox.setAttribute("id", "takings")
+    textBox
+  }
+
+  def br: Element = {
+    document.createElement("br")
+  }
+
+  def isProfit(): Boolean = {
+    document.getElementById("hours")
+    val hours =
+      document.getElementById("hours").asInstanceOf[html.Input].value.toInt
+    val takings =
+      document.getElementById("takings").asInstanceOf[html.Input].value.toInt
+
+    val cost = hours * 10.5
+    val net = takings * 0.95
+    cost < net
+  }
+
+  def calculate(): Unit = {
+    if (isProfit())
+      dom.window.alert("making paper")
+    else
+      dom.window.alert("making loss")
+
+  }
+
 }
