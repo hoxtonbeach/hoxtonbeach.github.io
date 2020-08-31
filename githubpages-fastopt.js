@@ -664,14 +664,66 @@ class $c_LMain$ extends $c_O {
     const takings = this$6.parseInt__T__I__I(x$1, 10);
     const cost = (10.5 * hours);
     const net = (0.95 * takings);
-    return (cost < net)
+    return (cost < (net / 3.0))
   };
   calculate__V() {
+    let x1___1;
+    let x1___2;
     if (this.isProfit__Z()) {
-      $m_Lorg_scalajs_dom_package$().window__Lorg_scalajs_dom_raw_Window().alert("making paper")
+      const _1 = this.fanfareAudio__Lorg_scalajs_dom_raw_HTMLAudioElement();
+      const _2 = this.happyImage__Lorg_scalajs_dom_raw_HTMLImageElement();
+      const $$x1___1 = _1;
+      const $$x1___2 = _2;
+      x1___1 = $$x1___1;
+      x1___2 = $$x1___2
     } else {
-      $m_Lorg_scalajs_dom_package$().window__Lorg_scalajs_dom_raw_Window().alert("making loss")
-    }
+      const _1$1 = this.sadAudio__Lorg_scalajs_dom_raw_HTMLAudioElement();
+      const _2$1 = this.sadImage__Lorg_scalajs_dom_raw_HTMLImageElement();
+      const $$x2___1 = _1$1;
+      const $$x2___2 = _2$1;
+      x1___1 = $$x2___1;
+      x1___2 = $$x2___2
+    };
+    const audio = x1___1;
+    const image = x1___2;
+    $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().body.innerHTML = "";
+    $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().body.appendChild(image);
+    $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().body.appendChild(this.br__Lorg_scalajs_dom_raw_Element());
+    $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().body.appendChild(this.reloadButton__Lorg_scalajs_dom_raw_Element());
+    audio.play()
+  };
+  reloadButton__Lorg_scalajs_dom_raw_Element() {
+    const button = $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().createElement("button");
+    button.textContent = "Try Again";
+    button.addEventListener("click", ((arg1$2) => {
+      $m_LMain$().Main$$$anonfun$reloadButton$1__Lorg_scalajs_dom_raw_MouseEvent__V(arg1$2)
+    }));
+    return button
+  };
+  sadImage__Lorg_scalajs_dom_raw_HTMLImageElement() {
+    const boss = $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().createElement("img");
+    boss.src = "sadboss.gif";
+    return boss
+  };
+  happyImage__Lorg_scalajs_dom_raw_HTMLImageElement() {
+    const will = $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().createElement("img");
+    will.src = "will.gif";
+    $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().body.appendChild(will);
+    return will
+  };
+  sadAudio__Lorg_scalajs_dom_raw_HTMLAudioElement() {
+    const audio = $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().createElement("audio");
+    audio.src = "sadtrombone.mp3";
+    return audio
+  };
+  fanfareAudio__Lorg_scalajs_dom_raw_HTMLAudioElement() {
+    const audio = $m_Lorg_scalajs_dom_package$().document__Lorg_scalajs_dom_raw_HTMLDocument().createElement("audio");
+    audio.src = "fanfare.mp3";
+    return audio
+  };
+  Main$$$anonfun$reloadButton$1__Lorg_scalajs_dom_raw_MouseEvent__V(e) {
+    const qual$1 = $m_Lorg_scalajs_dom_package$().window__Lorg_scalajs_dom_raw_Window().location;
+    qual$1.reload()
   };
 }
 const $d_LMain$ = new $TypeData().initClass({

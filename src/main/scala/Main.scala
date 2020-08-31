@@ -1,4 +1,5 @@
 import org.scalajs.dom
+import org.scalajs.dom.html.{Audio, Image}
 import org.scalajs.dom.{document, html}
 import org.scalajs.dom.raw.Element
 
@@ -71,15 +72,55 @@ object Main {
 
     val cost = hours * 10.5
     val net = takings * 0.95
-    cost < net
+
+    cost < (net / 3)
   }
 
   def calculate(): Unit = {
-    if (isProfit())
-      dom.window.alert("making paper")
-    else
-      dom.window.alert("making loss")
-
+    val (audio, image) = if (isProfit()) {
+      (fanfareAudio, happyImage)
+    } else {
+      (sadAudio, sadImage)
+    }
+    document.body.innerHTML = ""
+    document.body.appendChild(image)
+    document.body.appendChild(br)
+    document.body.appendChild(reloadButton)
+    audio.play()
   }
 
+  def reloadButton: Element = {
+    val button = document.createElement("button")
+    button.textContent = "Try Again"
+    button.addEventListener("click", { (e: dom.MouseEvent) =>
+      dom.window.location.reload()
+    })
+    button
+  }
+
+  def sadImage: Image = {
+    val boss = document.createElement("img")
+    val bImage = boss.asInstanceOf[Image]
+    bImage.src = "sadboss.gif"
+    bImage
+  }
+  def happyImage: Image = {
+    val will = document.createElement("img")
+    val wImage = will.asInstanceOf[Image]
+    wImage.src = "will.gif"
+    document.body.appendChild(wImage)
+    wImage
+  }
+
+  def sadAudio: Audio = {
+    val audio = document.createElement("audio").asInstanceOf[Audio]
+    audio.src = "sadtrombone.mp3"
+    audio
+  }
+
+  def fanfareAudio: Audio = {
+    val audio = document.createElement("audio").asInstanceOf[Audio]
+    audio.src = "fanfare.mp3"
+    audio
+  }
 }
